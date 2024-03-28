@@ -10,7 +10,8 @@ const App=()=> {
 
   const [userList,setUserList]= useState([]);
   const [filteredSlot,setFilteredSlot]= useState('');
-
+  const [editSlotUsername,setEditSoltUsername]=useState('');
+  const [editSlotSeatnumber,setEditSoltSeatNumber]=useState('');
   
 
   const addUserHandler=(uName,uSeat)=>{
@@ -32,8 +33,11 @@ const App=()=> {
   }
 
   const editUserHandler=(editUsersId,editUsersUsername,editUsersSeatnumber)=>{
+    setEditSoltUsername(editUsersUsername)
+    setEditSoltSeatNumber(editUsersSeatnumber)
     const newUsers = userList.filter((user) => user.id !== editUsersId)
     setUserList(newUsers)
+    
   }
 
 
@@ -61,7 +65,7 @@ const App=()=> {
       </div>
       <TotalBooked users={userList} />
       <FindUsers onChangeFilter={slotChangeHandler} selected={filteredSlot}/>
-      <AddUsers onAddUser={addUserHandler} users={userList}  />
+      <AddUsers onAddUser={addUserHandler} users={userList} currUsername={editSlotUsername} currSeatnumber={editSlotSeatnumber}/>
       <UsersList users={onfilterEmpty()} onDelete={deleteUserHandler} onEdit={editUserHandler}/>
     </Fragment>
   );

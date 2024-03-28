@@ -1,4 +1,4 @@
-import { useState,useRef,Fragment } from "react";
+import { useState,useRef,Fragment,useEffect } from "react";
 import Card from "../UI/Card/Card";
 import classes from './AddUsers.module.css'
 import Button from "../UI/Button/Button";
@@ -10,6 +10,13 @@ const AddUsers=(props)=>{
 
     const nameInputRef=useRef();
     const seatInputRef=useRef();
+
+    
+    useEffect(()=>{
+        setEnteredUserName(props.currUsername)
+        setEnteredSeatNumber(props.currSeatnumber);
+        
+    },[props.currUsername,props.currSeatnumber])
 
     const addUserHandler=(event)=>{
         event.preventDefault();
@@ -32,6 +39,8 @@ const AddUsers=(props)=>{
         setEnteredSeatNumber(event.target.value);
         
     }
+
+    
 
     return (
         <Fragment>
