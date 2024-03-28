@@ -1,39 +1,69 @@
-import { useState } from "react";
+import { useState,Fragment } from "react";
 import AddUsers from "./Components/Users/AddUsers";
 import UsersList from "./Components/Users/UsersList";
 import TotalBooked from "./Components/Users/TotolBooked";
+import FindUsers from "./Components/Users/FindUsers";
+import classes from './App.module.css';
 
 
 const App=()=> {
 
   const [userList,setUserList]= useState([]);
+  const [filteredSlot,setFilteredSlot]= useState('');
+
+  
 
   const addUserHandler=(uName,uSeat)=>{
     setUserList((prevList)=>{
+      for(const obj of userList){
+        if(obj.seatnumber===uSeat){
+          alert("SEAT ALREADY BOOKED")
+          return [...prevList];
+        }
+      }
       return [...prevList,{name:uName,seatnumber:uSeat,id:Math.random().toString(),status:0}]
     })
   }
 
-  const deleteUserHandler=(deleteUsers)=>{
-    const newUsers = userList.filter((user) => user.id !== deleteUsers)
+  const deleteUserHandler=(deleteUsersId)=>{
+    const newUsers = userList.filter((user) => user.id !== deleteUsersId)
 
     setUserList(newUsers)
   }
 
-  const editUserHandler=(editUsers)=>{
-    const newUsers = userList.filter((user) => user.id !== editUsers)
+  const editUserHandler=(editUsersId,editUsersUsername,editUsersSeatnumber)=>{
+    const newUsers = userList.filter((user) => user.id !== editUsersId)
     setUserList(newUsers)
-    
-    
+  }
+
+
+  const slotChangeHandler=(selectedSlot)=>{
+    setFilteredSlot(selectedSlot)
+  }
+
+  const filteredLists = userList.filter((slot)=>{
+    return slot.seatnumber ===filteredSlot;
+  })
+
+  const onfilterEmpty = ()=>{
+    if(filteredSlot===''){
+      return userList;
+    }
+    else{
+      return filteredLists;
+    }
   }
 
   return (
-    <div>
+    <Fragment>
+      <div className={classes.heading}>
       <h1>Movie Booking</h1>
-      <TotalBooked users={userList} delete={deleteUserHandler} edit={editUserHandler} />
-      <AddUsers onAddUser={addUserHandler} />
-      <UsersList users={userList} onDelete={deleteUserHandler} onEdit={editUserHandler}/>
-    </div>
+      </div>
+      <TotalBooked users={userList} />
+      <FindUsers onChangeFilter={slotChangeHandler} selected={filteredSlot}/>
+      <AddUsers onAddUser={addUserHandler} users={userList}  />
+      <UsersList users={onfilterEmpty()} onDelete={deleteUserHandler} onEdit={editUserHandler}/>
+    </Fragment>
   );
 }
 

@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,Fragment } from "react";
+import Card from "../UI/Card/Card";
+import classes from './TotalBooked.module.css'
 
 const TotalBooked = (props)=>{
     const [totalBooked,setTotalBooked] = useState(0);
@@ -16,9 +18,11 @@ const TotalBooked = (props)=>{
     },[props.users])
 
     return (
-        <div>
+        <Fragment>
+            <Card className={classes.p}>
             <p>Total Booked: {totalBooked}</p>
-        </div>
+            </Card>
+        </Fragment>
     );
 }
 

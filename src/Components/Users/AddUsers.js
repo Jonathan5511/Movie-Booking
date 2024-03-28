@@ -1,12 +1,22 @@
-import { useState } from "react";
+import { useState,useRef,Fragment } from "react";
+import Card from "../UI/Card/Card";
+import classes from './AddUsers.module.css'
+import Button from "../UI/Button/Button";
 
 const AddUsers=(props)=>{
 
     const [enteredUserName,setEnteredUserName]=useState('');
     const [enteredSeatNumber,setEnteredSeatNumber]=useState('');
 
+    const nameInputRef=useRef();
+    const seatInputRef=useRef();
+
     const addUserHandler=(event)=>{
         event.preventDefault();
+        
+        if(enteredUserName.trim().length===0 || enteredSeatNumber<1){
+            return;
+        }
         props.onAddUser(enteredUserName,enteredSeatNumber);
         setEnteredUserName('')
         setEnteredSeatNumber('')
@@ -15,22 +25,26 @@ const AddUsers=(props)=>{
 
     const changeUsernameHandler=(event)=>{
         setEnteredUserName(event.target.value);
+        
     }
 
     const changeSeatNumberHandler=(event)=>{
         setEnteredSeatNumber(event.target.value);
+        
     }
 
     return (
-        <div>
+        <Fragment>
+            <Card className={classes.input}>
             <form onSubmit={addUserHandler}>
                 <label htmlFor='name'>User Name:</label>
-                <input id="name" type="text" value={enteredUserName} onChange={changeUsernameHandler}></input>
+                <input id="name" type="text" value={enteredUserName} onChange={changeUsernameHandler} ref={nameInputRef}></input>
                 <label htmlFor='seatno'>Seat Number:</label>
-                <input id="seatno" type="number" value={enteredSeatNumber} onChange={changeSeatNumberHandler}></input>
-                <button type='submit'>Add</button>
+                <input id="seatno" type="number" value={enteredSeatNumber} onChange={changeSeatNumberHandler} ref={seatInputRef}></input>
+                <Button type='submit'>Add</Button>
             </form>
-        </div>
+            </Card>
+        </Fragment>
     );
 }
 

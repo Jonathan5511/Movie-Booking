@@ -1,0 +1,9 @@
+.heading h1{
+    margin: 0.8rem auto;
+    padding: 1rem auto;
+    width: 100%;
+    max-width: 100rem;
+    text-align: center;
+    background: rgb(164, 164, 245);
+    
+}

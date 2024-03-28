@@ -1,0 +1,26 @@
+.users {
+    margin: 0.5rem auto;
+    width: 90%;
+    max-width: 50rem;
+  }
+  
+  .users ul {
+    list-style: none;
+    padding: 1rem;
+    font-weight: bold;
+  }
+  
+  .users li {
+    border: 1px solid #ccc;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    font-weight: bold;
+  }
+
+  .users h3{
+    border: 1px solid #ccc;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+  }
+
+  
