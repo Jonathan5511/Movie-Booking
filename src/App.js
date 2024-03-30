@@ -33,10 +33,10 @@ const App=()=> {
   }
 
   const editUserHandler=(editUsersId,editUsersUsername,editUsersSeatnumber)=>{
-    setEditSoltUsername(editUsersUsername)
-    setEditSoltSeatNumber(editUsersSeatnumber)
     const newUsers = userList.filter((user) => user.id !== editUsersId)
     setUserList(newUsers)
+    setEditSoltUsername(editUsersUsername)
+    setEditSoltSeatNumber(editUsersSeatnumber)
     
   }
 

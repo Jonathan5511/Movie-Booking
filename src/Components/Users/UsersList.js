@@ -29,7 +29,6 @@ const UsersList=props=>{
         </Card>   
         </Fragment>
      );
-
 }
 
 export default UsersList;
